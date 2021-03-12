@@ -97,7 +97,7 @@ def main(query, geocode, printing=True):
 	# creating object of TwitterClient Class 
 	api = TwitterClient() 
 	# calling function to get tweets 
-	tweets = api.get_tweets(query, geocode, count = 400)
+	tweets = api.get_tweets(query, geocode, count = 100)
 
 	if len(tweets) > 0:
 		#picking positive tweets from tweets 

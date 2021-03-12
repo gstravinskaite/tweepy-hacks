@@ -3,8 +3,6 @@ import sentiment
 
 radius = '100km'
 
-topic = 'Trump'
-
 df_loc = pd.read_csv('locations.csv')
 topics = open('topics.txt')
 topics = topics.read()
