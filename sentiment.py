@@ -5,10 +5,10 @@ import re
 from tweepy import OAuthHandler 
 
 # YOUR CREDENTIALS
-KEY = "GQqUAqg7zLflF9vRpjkpKpVAT"
-SECRET = "ooiv2twJftijmp8vhNm8spI6XRVr6SuDDnkXKIrEz2m7RMrUnc"
-ACCESS_TOKEN = "2789541762-qgnsSjg58VVaenvNEcQdj2Dap7h0YzWOWHhCeyK"
-ACCESS_TOKEN_SECRET = "m9PlUYkL2R4vxLziBdYzzP0tMcFOeLDBUjJi9tgRaahNf"
+KEY = 
+SECRET = 
+ACCESS_TOKEN = 
+ACCESS_TOKEN_SECRET = 
 
 class TwitterClient(object): 
 	''' 
