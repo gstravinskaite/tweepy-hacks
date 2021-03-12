@@ -97,31 +97,37 @@ def main(query, geocode, printing=True):
 	# creating object of TwitterClient Class 
 	api = TwitterClient() 
 	# calling function to get tweets 
-	tweets = api.get_tweets(query, geocode, count = 400) 
-	#picking positive tweets from tweets 
-	ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive'] 
-	# percentage of positive tweets 
-	percent_positive = 100*len(ptweets)/len(tweets)
-	#print("Positive tweets percentage: {} %".format(percent_positive)) 
-	# picking negative tweets from tweets 
-	ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative'] 
-	# percentage of negative tweets 
-	percent_negative = 100*len(ntweets)/len(tweets)
-	#print("Negative tweets percentage: {} %".format(percent_negative)) 
-	# percentage of neutral tweets 
-	percent_neutral = 100*(len(tweets) -(len( ntweets )+len( ptweets)))/len(tweets)
-	#print("Neutral tweets percentage: {} % \ ".format(percent_neutral)) 
+	tweets = api.get_tweets(query, geocode, count = 400)
 
-	if printing == True:
-		# printing first 5 positive tweets 
-		print("\n\nPositive tweets:") 
-		for tweet in ptweets[:10]: 
-			print(tweet['text']) 
+	if len(tweets) > 0:
+		#picking positive tweets from tweets 
+		ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive'] 
+		# percentage of positive tweets 
+		percent_positive = 100*len(ptweets)/len(tweets)
+		#print("Positive tweets percentage: {} %".format(percent_positive)) 
+		# picking negative tweets from tweets 
+		ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative'] 
+		# percentage of negative tweets 
+		percent_negative = 100*len(ntweets)/len(tweets)
+		#print("Negative tweets percentage: {} %".format(percent_negative)) 
+		# percentage of neutral tweets 
+		percent_neutral = 100*(len(tweets) -(len( ntweets )+len( ptweets)))/len(tweets)
+		#print("Neutral tweets percentage: {} % \ ".format(percent_neutral)) 
 
-		# printing first 5 negative tweets 
-		print("\n\nNegative tweets:") 
-		for tweet in ntweets[:10]: 
-			print(tweet['text']) 
+		if printing == True:
+			# printing first 5 positive tweets 
+			print("\n\nPositive tweets:") 
+			for tweet in ptweets[:10]: 
+				print(tweet['text']) 
+
+			# printing first 5 negative tweets 
+			print("\n\nNegative tweets:") 
+			for tweet in ntweets[:10]: 
+				print(tweet['text']) 
+	else:
+		percent_positive = 0
+		percent_negative = 0
+		percent_neutral = 0
 
 	return percent_positive, percent_negative, percent_neutral
 

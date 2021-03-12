@@ -1,11 +1,20 @@
 import pandas as pd
 import sentiment
 
-coordinates = pd.read_excel("lat_long.xls", index_col=0, header=0)
-cords = coordinates.values.tolist()
-for cord in cords:
-  pos, neg, neutral = sentiment.main(query="Trump", geocode="{},{},100km".format(cord[0],cord[1]), printing=False)
-  print(pos, neg, neutral)
+radius = '100km'
 
+df_loc = pd.read_csv('locations.csv')
+topics = open('topics.txt')
+topics = topics.read()
+topics = topics.split("\n")
 
-#	print("Negative tweets percentage: {} %".format(percent_negative)) 
+# for row in df_loc.rows:
+for index, row in df_loc.iterrows():
+    name = row['LOCATION']
+    lat = row['LAT']
+    lng = row['LONG']
+
+    geocode = str(lat)+','+str(lng)+','+radius    
+
+    pos, neg, neutral = sentiment.main(query="Trump", geocode=geocode, printing=False)
+    print(pos, neg, neutral)
