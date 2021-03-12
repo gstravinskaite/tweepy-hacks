@@ -4,17 +4,11 @@ from textblob import TextBlob
 import re 
 from tweepy import OAuthHandler 
 
-
+# YOUR CREDENTIALS
 KEY = "GQqUAqg7zLflF9vRpjkpKpVAT"
 SECRET = "ooiv2twJftijmp8vhNm8spI6XRVr6SuDDnkXKIrEz2m7RMrUnc"
 ACCESS_TOKEN = "2789541762-qgnsSjg58VVaenvNEcQdj2Dap7h0YzWOWHhCeyK"
 ACCESS_TOKEN_SECRET = "m9PlUYkL2R4vxLziBdYzzP0tMcFOeLDBUjJi9tgRaahNf"
-
-# auth = tweepy.OAuthHandler(KEY, SECRET)
-# auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-
-# api = tweepy.API(auth)
-
 
 class TwitterClient(object): 
 	''' 
@@ -99,33 +93,40 @@ class TwitterClient(object):
 			# print error (if any) 
 			print("Error : " + str(e)) 
 
-def main(): 
+def main(query, geocode, printing=True): 
 	# creating object of TwitterClient Class 
 	api = TwitterClient() 
 	# calling function to get tweets 
-	tweets = api.get_tweets(query = 'pineapple on pizza', geocode="51.509865,-0.118092,100km", count = 400) 
+	tweets = api.get_tweets(query, geocode, count = 400) 
 	#picking positive tweets from tweets 
 	ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive'] 
 	# percentage of positive tweets 
-	print("Positive tweets percentage: {} %".format(100*len(ptweets)/len(tweets))) 
+	percent_positive = 100*len(ptweets)/len(tweets)
+	#print("Positive tweets percentage: {} %".format(percent_positive)) 
 	# picking negative tweets from tweets 
 	ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative'] 
 	# percentage of negative tweets 
-	print("Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets))) 
+	percent_negative = 100*len(ntweets)/len(tweets)
+	#print("Negative tweets percentage: {} %".format(percent_negative)) 
 	# percentage of neutral tweets 
-	print("Neutral tweets percentage: {} % \ ".format(100*(len(tweets) -(len( ntweets )+len( ptweets)))/len(tweets))) 
+	percent_neutral = 100*(len(tweets) -(len( ntweets )+len( ptweets)))/len(tweets)
+	#print("Neutral tweets percentage: {} % \ ".format(percent_neutral)) 
 
-	# printing first 5 positive tweets 
-	print("\n\nPositive tweets:") 
-	for tweet in ptweets[:10]: 
-		print(tweet['text']) 
+	if printing == True:
+		# printing first 5 positive tweets 
+		print("\n\nPositive tweets:") 
+		for tweet in ptweets[:10]: 
+			print(tweet['text']) 
 
-	# printing first 5 negative tweets 
-	print("\n\nNegative tweets:") 
-	for tweet in ntweets[:10]: 
-		print(tweet['text']) 
+		# printing first 5 negative tweets 
+		print("\n\nNegative tweets:") 
+		for tweet in ntweets[:10]: 
+			print(tweet['text']) 
+
+	return percent_positive, percent_negative, percent_neutral
 
 if __name__ == "__main__": 
 	# calling main function 
-	main() 
+	main(printing=False)
+
 
